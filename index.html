@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset ="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Gra js</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<h1>Papier kamień nożyce</h1>
+		<button class="btn btn-success" onClick="newGame()">New game</button> 
+		<button class="btn btn-default pick-button" onclick="playerPick('rock')">rock</button>
+		<button class="btn btn-default pick-button" onclick="playerPick('paper')">paper</button>
+		<button class="btn btn-default pick-button" onclick="playerPick('scissors')">scissors</button>
+		<h3>current round</h3></br>
+		Computer picked: <span id="computerPick"></span></br>
+		Player picked <span id="playerPick"></span> </br>
+		result <span id="gameResult"></span>
+		<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+		      <th colspan="2" class="text-center">Game results</th>
+		    </tr>
+		    <tr>
+		      <th id="playerName">Player</th>
+		      <th>Computer</th>
+		    </tr>
+		  </thead>
+		  <tbody><tr>
+		    <td id="playerScore"></td>
+		    <td id="computerScore"></td>
+		  </tr></tbody>
+		</table>
+		<p id="roundResult"></p>
+		<script src="script.js">
+		</script>
+	</body>
+</html>
