@@ -10,31 +10,58 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<h1>Papier kamień nożyce</h1>
-		<button class="btn btn-success" onClick="newGame()">New game</button> 
-		<button class="btn btn-default pick-button" onclick="playerPick('rock')">rock</button>
-		<button class="btn btn-default pick-button" onclick="playerPick('paper')">paper</button>
-		<button class="btn btn-default pick-button" onclick="playerPick('scissors')">scissors</button>
-		<h3>current round</h3></br>
-		Computer picked: <span id="computerPick"></span></br>
-		Player picked <span id="playerPick"></span> </br>
-		result <span id="gameResult"></span>
-		<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-		      <th colspan="2" class="text-center">Game results</th>
-		    </tr>
-		    <tr>
-		      <th id="playerName">Player</th>
-		      <th>Computer</th>
-		    </tr>
-		  </thead>
-		  <tbody><tr>
-		    <td id="playerScore"></td>
-		    <td id="computerScore"></td>
-		  </tr></tbody>
-		</table>
-		<p id="roundResult"></p>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2 champions">
+					<h1 class="player-name">Computer</h1>
+					<div id="left-column"></div>
+				</div>
+				<div class="col-md-8" id="main-content">
+					<img id="logo" src="img/logo.png">
+					<div id="rules">	
+						<h1>Witaj w grze League of Lengends Fight!</h1>
+						<p>Zasady gry są bardzo porste i opierają się na zasadach gry "papier, kamień, nożyce". Wybierz jednego z trzech bohaterów i postaraj sie pokonać przeciwnika.</p>
+						<ul>
+							<li>Anivia - mistrzyni lodu - pokonuje wodnego Fizza, lecz przegrywa z ognistym Brandem</li>
+							<li>Fizz - mistrz wody - pokonuje ognistego Branda, lecz przegrywa z lodową Anivią</li>
+							<li>Brand - mistrz ognia - pokonuje lodową Anivie, lecz przegrywa z wodnym Fizzem</li>
+						</ul>
+						<button class="btn game-button"  onClick="newGame()">Nowa gra</button> 
+					</div>
+					<div id="game-elements">
+						<button class="btn pick-button game-button" onclick="playerPick('Anivia')">Anivia</button>
+						<button class="btn pick-button game-button" onclick="playerPick('Fizz')">Fizz</button>
+						<button class="btn pick-button game-button" onclick="playerPick('Brand')">Brand</button>
+						<div id="game-result">
+							<p>Gracz wybrał: <span id="playerPick"></span></p>
+							<p>Komputer wybrał: <span id="computerPick"></span></p>
+							<p>Rezultat: <span id="gameResult"></span></p>
+						</div>
+						<table class="table table-bordered game-table">
+						<thead>
+							<tr>
+						      <th colspan="2" class="text-center">Wynik gry</th>
+						    </tr>
+						    <tr>
+						      <th class="player-name"></th>
+						      <th id="playerScore"></th>
+						    </tr>
+						  </thead>
+						  <tbody><tr>
+						    <td id="computer-table">Komputer</td>
+						    <td id="computerScore"></td>
+						  </tr></tbody>
+						</table>
+						<p id="roundResult"></p>
+					</div>
+				</div>
+				<div class="col-md-2 champions ">
+					<h1 id="computer-name">Komputer</h1>
+					<div id="right-column"></div>
+				</div>
+			</div>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 		<script src="script.js">
 		</script>
 	</body>
