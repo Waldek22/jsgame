@@ -15,9 +15,9 @@ var computer = {
 	
 function newGame() {
 	resetScore();
-	player.name = prompt("what's your name?", "John Locke");
+	player.name = prompt("Podaj swoje imię", "John Locke");
 	setObjects();
-	showButtons();
+	showAndHideElements();
 }
 function playerPick(pick) {
 	player.pick = pick;	
@@ -28,44 +28,70 @@ function checkResult () {
 	
 	
 	setObjects();
-		var gameResult;
+		var gameResult,
+			leftColumn = document.getElementById('left-column'),
+			rightColumn = document.getElementById('right-column');
 	
-	if (player.pick === computer.pick) {
-		gameResult = "Tie!"
-	}
-	else if (player.pick === 'rock') {
-		if (computer.pick === 'scissors') {
+	if (player.pick === 'Anivia') {
+		showImg(leftColumn, 'img-left', 'img/anivia.png');
+		if (computer.pick === 'Fizz') {
+			showImg(rightColumn, 'img-right', 'img/fizz.png');
 			player.score++;
-			gameResult = 'Player wins!';	
+			gameResult = 'Gracz wygrywa!';	
 		}
-		else if (computer.pick === 'paper') {
+		else if (computer.pick === 'Brand') {
+			showImg(rightColumn, 'img-right', 'img/brand.png');
 			computer.score++;
-			gameResult = 'Computer wins!';
+			gameResult = 'Komputer wygrywa!';
+		}
+		else if (player.pick === computer.pick) {
+			showImg(rightColumn, 'img-right', 'img/anivia.png');
+		gameResult = "Remis!"
 		}
 	}
-	else if (player.pick === 'paper') {
-		if (computer.pick === 'rock') {
+	else if (player.pick === 'Fizz') {
+		showImg(leftColumn, 'img-left', 'img/fizz.png');
+		if (computer.pick === 'Brand') {
+			showImg(rightColumn, 'img-right', 'img/brand.png');
 			player.score++;
-			gameResult = 'Player wins!';		
+			gameResult = 'Gracz wygrywa!';		
 		}
-		else if (computer.pick === 'scissors') {
+		else if (computer.pick === 'Anivia') {
+			showImg(rightColumn, 'img-right', 'img/anivia.png');
 			computer.score++;
-			gameResult = 'Computer wins!';
+			gameResult = 'Komputer wygrywa!';
+		}
+		else if (player.pick === computer.pick) {
+			showImg(rightColumn, 'img-right', 'img/fizz.png');
+		gameResult = "Remis!"
 		}
 	}
-	else if (player.pick === 'scissors') {
-		if (computer.pick === 'paper') {
+	else if (player.pick === 'Brand') {
+		showImg(leftColumn, 'img-left', 'img/brand.png');
+		if (computer.pick === 'Anivia') {
+			showImg(rightColumn, 'img-right', 'img/anivia.png');
 			player.score++;
-			gameResult = 'Player wins!';		
+			gameResult = 'Gracz wygrywa!';		
 		}
-		else if (computer.pick === 'rock') {
+		else if (computer.pick === 'Fizz') {
+			showImg(rightColumn, 'img-right', 'img/fizz.png');
 			computer.score++ ;
-			gameResult ='Computer wins!';
+			gameResult ='Komputer wygrywa!';
+		}
+		else if (player.pick === computer.pick) {
+			showImg(rightColumn, 'img-right', 'img/brand.png');
+		gameResult = "Remis!"
 		}
 	}
 		document.getElementById('gameResult').innerHTML = gameResult;
 	endGame();
-	
+	function showImg(column, imgClass, imgSrc) {
+		var leftColumn = document.getElementById('left-column'),
+			rightColumn = document.getElementById('right-column');
+		column.innerHTML = '<img class="' + imgClass + '"src="' + imgSrc + '">';
+		column.style.display = 'none';
+		$(column).fadeIn(1000);
+	};
 }
 
 
@@ -78,87 +104,92 @@ function resetScore() {
 	gameResult = '';
 }
 function setObjects() {
-	document.getElementById("playerName").innerHTML = player.name;
+	var playerName = document.getElementsByClassName("player-name");
 	document.getElementById('playerScore').innerHTML = player.score;
 	document.getElementById('computerScore').innerHTML = computer.score;
 	document.getElementById('computerPick').innerHTML = computer.pick;
 	document.getElementById('playerPick').innerHTML = player.pick;
 	document.getElementById('gameResult').innerHTML = gameResult;
+
+	for(var i = 0; i < playerName.length; i++) {
+		playerName[i].innerHTML = player.name;
+	}
 }
 
-function showButtons() {
-	var buttons = document.getElementsByClassName("pick-button");
-	for(var i = 0; i < buttons.length; i++) {
-		buttons[i].style.visibility = 'visible';
-	}	
+function showAndHideElements() {
+	var gameElements = document.getElementById('game-elements'),
+		infoBoard = document.getElementById('rules'),
+		computerName = document.getElementById('computer-name'),
+		playerName = document.getElementsByClassName("player-name");
+	for(var i = 0; i < playerName.length; i++) {
+		playerName[i].style.visibility = 'visible';
+	}
+	infoBoard.style.display = 'none';	
+	computerName.style.visibility = 'visible';
+	gameElements.style.visibility = 'visible';
+	document.getElementById('roundResult').innerHTML = " ";
 }
-function hideButtons(){
-	var buttons = document.getElementsByClassName("pick-button");
-  	for(var i = 0; i < buttons.length; i++) {
-			 buttons[i].style.visibility = 'hidden';
-  	};
+function hideGameElements(){
+	var gameElements = document.getElementById('game-elements'),
+		infoBoard = document.getElementById('rules'),
+		computerName = document.getElementById('computer-name'),
+		playerName = document.getElementsByClassName("player-name"),
+		gameResultsBox = document.getElementById('game-results'),
+		leftColumn = document.getElementById('left-column'),
+		rightColumn = document.getElementById('right-column');
+  	
+  	gameElements.style.visibility = 'hidden';
+  	infoBoard.style.display = 'block';
+  	computerName.style.visibility = 'hidden';
+  	gameResultsBox.outerHTML = "";
+  	leftColumn.style.display = 'none';
+  	rightColumn.style.display = 'none';
+
+
+	delete gameResultsBox;
+  	for(var i = 0; i < playerName.length; i++) {
+		playerName[i].style.visibility = 'hidden';
+	}
 }
 
 
 function computerPick() {
 	switch(Math.floor(Math.random()*3)) {
 		case 0:
-		computer.pick = 'rock';
+		computer.pick = 'Anivia';
 		break;
 		case 1:
-		computer.pick = 'paper';
+		computer.pick = 'Fizz';
 		break;
 		case 2:
-		computer.pick = 'scissors';
+		computer.pick = 'Brand';
 		break;
-	}
-}
-function roundResult(gameResult) {
-	var gameResult;
-	
-	if (player.pick === computer.pick) {
-		gameResult = "Tie!"
-	}
-	else if (player.pick === 'rock') {
-		if (computer.pick === 'scissors') {
-			player.score++;
-			gameResult = 'Player wins!';	
-		}
-		else if (computer.pick === 'paper') {
-			computer.score++;
-			gameResult = 'Computer wins!';
-		}
-	}
-	else if (player.pick === 'paper') {
-		if (computer.pick === 'rock') {
-			player.score++;
-			gameResult = 'Player wins!';		
-		}
-		else if (computer.pick === 'scissors') {
-			computer.score++;
-			gameResult = 'Computer wins!';
-		}
-	}
-	else if (player.pick === 'scissors') {
-		if (computer.pick === 'paper') {
-			player.score++;
-			gameResult = 'Player wins!';		
-		}
-		else if (computer.pick === 'rock') {
-			computer.score++ ;
-			gameResult ='Computer wins!';
-		}
 	}
 }
 function endGame() {
 	if (player.score >= 10 || computer.score >= 10) {
 		if (player.score > computer.score) {
-			document.getElementById('roundResult').innerHTML = "Player wins the game!!";
+			showGameResult('Gracz');
 		}
 		else {
-			document.getElementById('roundResult').innerHTML = "Computer wins the game!!";
+			showGameResult('Komputer');
 		}
-		hideButtons();
+		
+		function showGameResult(player) {
+			var body = document.getElementsByTagName("body"),
+				gameResultInfo = document.createElement("DIV"),
+				gameResultBox = document.createElement("DIV"),
+				gameResultText = document.createElement("H1");
+			
+			gameResultInfo.id = "game-results";
+			gameResultBox.id = "game-results-content";
+
+			document.body.appendChild(gameResultInfo);
+			gameResultInfo.appendChild(gameResultBox);
+			gameResultBox.appendChild(gameResultText);
+
+			gameResultText.innerHTML = player + " wygrywa grę!"; 
+			gameResultBox.innerHTML = '<h1>' + player + ' wygrywa grę!</h1><button class = "btn game-button" onclick = "hideGameElements()">OK</button>';
+		};
 	}	
 }
-
